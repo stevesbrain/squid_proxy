@@ -1,0 +1,13 @@
+squid-proxy:
+  image: 'salrashid123/squidproxy:latest'
+  restart: always
+
+  ports:
+    - '3128:3128'
+  volumes:
+    - '~/squid-logs:/apps/squid/var/logs'
+    - '/etc/localtime:/etc/localtime:ro'
+    - '~/server_crt.pem:/apps/server_crt.pem'
+    - '~/server_key.pem:/apps/server_key.pem'
+    - '~/squid.conf.https_proxy:/apps/squid.conf.https_proxy'
+  entrypoint: /apps/squid/sbin/squid -NsY -f /apps/squid.conf.https_proxy
